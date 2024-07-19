@@ -244,10 +244,16 @@ public class KenyaUiUtils {
 			 		? ((ConceptNumeric) obs.getConcept())
 					: Context.getConceptService().getConceptNumeric(obs.getConcept().getId());
 
-			String val = numeric.isPrecise() ? String.valueOf(obs.getValueNumeric()) : String.valueOf(obs.getValueNumeric().intValue());
+			String val = "";
+			if (numeric != null) {
+				Double valueNumeric = obs.getValueNumeric();
+				if (valueNumeric != null){
+					val = numeric.isPrecise() ? String.valueOf(obs.getValueNumeric()) : String.valueOf(obs.getValueNumeric().intValue());
 
-			if (StringUtils.isNotEmpty(numeric.getUnits())) {
-				val += " " + numeric.getUnits();
+					if (StringUtils.isNotEmpty(numeric.getUnits())) {
+						val += " " + numeric.getUnits();
+					}
+				}
 			}
 
 			return val;
